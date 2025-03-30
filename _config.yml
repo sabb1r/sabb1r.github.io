@@ -24,12 +24,12 @@ author:
   # Biographic information
   avatar           : "profile.png"
   name             : "Sabbir"
-  pronouns         : "he/him"
+  pronouns         : "He/Him"
   bio              : "Instrumentation Engineer at Nuclear Power Plant"
   location         : "Bangladesh"
   employer         : "Nuclear Power Plant Company Bangladesh Limited"
   uri              : "https://npcbl.portal.gov.bd/"
-  email            : "none@example.org" 
+  email            : "site@rooppurnpp.gov.bd" 
 
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile
