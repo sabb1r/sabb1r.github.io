@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sabbir Ahmed — Engineer & Technologist</title>
+  <title>Sabbir Ahmed — Engineer &amp; Technologist</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +13,12 @@
 
   <!-- NAV -->
   <nav>
-    <span class="nav-name">Sabbir Ahmed</span>
+    <div class="nav-identity">
+      <div class="avatar-float" id="avatarFloat">
+        <img src="photo.png" alt="Sabbir Ahmed" />
+      </div>
+      <span class="nav-name" id="navName">Sabbir Ahmed</span>
+    </div>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -33,11 +38,13 @@
       </h1>
       <p class="hero-sub">
         Instrumentation engineer at a nuclear power plant by day —
-        drawn to AI and cybersecurity, especially where they meet critical infrastructure.
+        drawn to <em>AI</em> and <em>cybersecurity</em>, especially where they meet critical infrastructure.
       </p>
-      <a href="#about" class="scroll-cue">↓</a>
+      <a href="#about" class="scroll-cue">&#8595;</a>
     </div>
-    <div class="hero-line"></div>
+    <div class="hero-photo">
+      <img src="photo.png" alt="Sabbir Ahmed" />
+    </div>
   </section>
 
   <!-- ABOUT -->
@@ -45,10 +52,6 @@
     <div class="section-label">01 — About</div>
     <div class="section-content">
       <div class="about-grid">
-
-        <div class="about-photo">
-          <img src="photo.jpg" alt="Sabbir Ahmed" />
-        </div>
 
         <div class="about-text">
           <p class="lead">
@@ -78,11 +81,11 @@
           </div>
           <div class="meta-item">
             <span class="meta-label">Interests</span>
-            <span class="meta-value">AI · Cybersecurity · Automation · Python</span>
+            <span class="meta-value">AI · Cybersecurity · Automation</span>
           </div>
           <div class="meta-item">
             <span class="meta-label">CV</span>
-            <span class="meta-value"><a href="cv.pdf" target="_blank">Download PDF ↗</a></span>
+            <span class="meta-value"><a href="cv.pdf" target="_blank">Download PDF &#8599;</a></span>
           </div>
         </div>
 
@@ -178,7 +181,7 @@
             </span>
           </div>
           <h3 class="project-title">
-            <a href="#" target="_blank">Project Title One ↗</a>
+            <a href="#" target="_blank">Project Title One &#8599;</a>
           </h3>
           <p class="project-desc">
             A short description of what this project does, the problem it solves,
@@ -195,7 +198,7 @@
             </span>
           </div>
           <h3 class="project-title">
-            <a href="#" target="_blank">Project Title Two ↗</a>
+            <a href="#" target="_blank">Project Title Two &#8599;</a>
           </h3>
           <p class="project-desc">
             A short description of what this project does, the problem it solves,
@@ -212,7 +215,7 @@
             </span>
           </div>
           <h3 class="project-title">
-            <a href="#" target="_blank">Project Title Three ↗</a>
+            <a href="#" target="_blank">Project Title Three &#8599;</a>
           </h3>
           <p class="project-desc">
             A short description of what this project does, the problem it solves,
@@ -236,15 +239,15 @@
       <div class="contact-links">
         <a href="mailto:you@email.com" class="contact-link">
           <span class="contact-type">Email</span>
-          <span class="contact-value">you@email.com ↗</span>
+          <span class="contact-value">you@email.com &#8599;</span>
         </a>
         <a href="https://github.com/yourusername" target="_blank" class="contact-link">
           <span class="contact-type">GitHub</span>
-          <span class="contact-value">github.com/yourusername ↗</span>
+          <span class="contact-value">github.com/yourusername &#8599;</span>
         </a>
         <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-link">
           <span class="contact-type">LinkedIn</span>
-          <span class="contact-value">linkedin.com/in/yourusername ↗</span>
+          <span class="contact-value">linkedin.com/in/yourusername &#8599;</span>
         </a>
       </div>
     </div>
@@ -252,23 +255,48 @@
 
   <!-- FOOTER -->
   <footer>
-    <span>© <span id="year"></span> Sabbir Ahmed</span>
+    <span>&copy; <span id="year"></span> Sabbir Ahmed</span>
     <span>Built with care &amp; plain HTML</span>
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    (function() {
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
+      // Year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Fade-in sections on scroll
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.section, .project-item, .exp-item').forEach(function(el) {
+        el.classList.add('animate');
+        observer.observe(el);
       });
-    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.section, .project-item, .exp-item').forEach(el => observer.observe(el));
+      // Avatar slides into nav once hero scrolls out of view
+      var avatarFloat = document.getElementById('avatarFloat');
+      var heroSection = document.querySelector('.hero');
+
+      function checkScroll() {
+        var heroBottom = heroSection.getBoundingClientRect().bottom;
+        if (heroBottom < 0) {
+          avatarFloat.classList.add('visible');
+        } else {
+          avatarFloat.classList.remove('visible');
+        }
+      }
+
+      window.addEventListener('scroll', checkScroll, { passive: true });
+      checkScroll();
+
+    })();
   </script>
 
 </body>
